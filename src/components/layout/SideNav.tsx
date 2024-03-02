@@ -5,47 +5,29 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Drawer from '@mui/material/Drawer'
-import { makeStyles } from '@mui/styles'
 import { useMySideNavContext } from '@/contexts/sideNavContext'
 import { Close } from '@mui/icons-material'
 import Typography from '@mui/material/Typography'
-const useStyles = makeStyles({
- sideNav: {
-  width: '360px !important',
- },
- list: {
-  width: '360px !important',
- },
- listItem: {
-  width: '100%',
- },
- head: {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  paddingInline: '15px',
- },
- close: {
-  marginRight: '15px',
-  '&:hover': {
-   borderRadius: '10px',
-   backgroundColor: ' rgba(0, 0, 0, 0.09)',
-  },
- },
-})
+import Link from '@mui/material/Link'
+
 const SideNav: React.FC = () => {
  const { isOpen, toggleSideNavStatus } = useMySideNavContext()
- const classes = useStyles()
  return (
   <>
-   <Drawer anchor="left" open={isOpen} className={classes.sideNav}>
-    <List className={classes.list}>
-     <div className={classes.head}>
+   <Drawer anchor="left" open={isOpen}>
+    <List>
+     <div>
       <Typography variant="h5">menu</Typography>
-      <Close className={classes.close} onClick={toggleSideNavStatus} />
+      <Close onClick={toggleSideNavStatus} />
      </div>
-     <ListItemButton className={classes.listItem}></ListItemButton>
+     {['home', 'patients', 'Profile'].map((ele) => (
+      <ListItemButton key={ele}>
+       <Link underline="none" href={ele}>
+        {ele}
+       </Link>
+      </ListItemButton>
+     ))}
+     <ListItemButton></ListItemButton>
     </List>
    </Drawer>
   </>
